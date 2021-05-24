@@ -2,8 +2,13 @@ const { user } = require('../models/index')
 const cryptograph = require('../utils/cryptograph.utils')
 const userMapper = require('../mapper/user.mapper')
 
+const emailAlreadyExist = async (email) => {
+    const users = await user.find({ email })
+    return users.length > 0 ? true : false
+}
+
 const userAlreadyExist = async (email, password) => {
-    return await user.findOne({ email, password: cryptograph.createHash(password) }) ? true : false;
+    return await user.findOne({ email, password: cryptograph.createHash(password) }) ? true : false
 }
 
 const createCredential = async (email) => {
@@ -37,5 +42,6 @@ const validate = async (email, password) => {
 
 module.exports = { 
     userAlreadyExist,
-    validate
+    validate,
+    emailAlreadyExist
 }

@@ -1,3 +1,8 @@
+const node_environment = process.env.NODE_ENV || 'development'
+if(node_environment === "development") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -11,11 +16,6 @@ mongoose.connect(db.uri, { useUnifiedTopology: true, useNewUrlParser: true }, ()
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-const node_environment = process.env.NODE_ENV || 'development'
-if(node_environment === "development") {
-    require('dotenv').config();
-}
 
 app.use('/v1', routes)
 

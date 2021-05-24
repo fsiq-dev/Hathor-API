@@ -13,15 +13,30 @@ const createSchema = (modelPai, model, options = {}) => {
     })
 }
 
+// USUARIOS
 const userSchema =  require ('./user.model')
 const user = mongoose.model('user', createSchema(undefined, userSchema, {
     discriminatorKey: 'kind',
 }))
 
+// ADMIN
 const adminSchema  = require('./admin.model')
 const admin = user.discriminator('admin', createSchema(userSchema, adminSchema, {}))
 
+//PARCEIROS
+const partnerSchema  = require('./partners.model')
+const partner = user.discriminator('partner', createSchema(userSchema, partnerSchema, {}))
+
+
+// CATEGORIA
+const categorySchema = require('./category.model')
+const category = mongoose.model('category', createSchema(undefined, categorySchema, {
+    collection: 'category',
+}))
+
 module.exports = {
     user,
-    admin
+    admin,
+    category,
+    partner
 }

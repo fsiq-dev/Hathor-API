@@ -11,18 +11,18 @@ mongoose.connect(db.uri, { useUnifiedTopology: true, useNewUrlParser: true });
 
 
 
-const { admin, user } = require('./src/models/index');
+const { admin } = require('./src/models/index');
 const cryptograph = require('./src/utils/cryptograph.utils');
+const { json } = require('express');
 
 
 const criaADM = async () => {
-
+ 
   await admin.create({
     email: 'felipe.adm@teste.com',
     name: "felipe",
-    password: cryptograph.createHash('123456')
+    password: cryptograph.createHash('123123')
   });
-  
 }
 
 
