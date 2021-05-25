@@ -40,7 +40,7 @@ const createNewPartner =  async (model) => {
     })
     return {
         sucsses: true,
-        mensagem: 'Operação realizada com sucesso',
+        message: 'Operação realizada com sucesso',
         data: {
             ...newPartner
         }

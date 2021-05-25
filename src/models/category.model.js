@@ -12,7 +12,11 @@ const categorySchema = {
         required: true,
     },
     image: {
-        originalName: {
+        initialName: {
+            type: String,
+            required: false,
+        },
+        name: {
             type: String,
             required: false,
         },

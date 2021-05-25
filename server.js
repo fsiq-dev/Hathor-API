@@ -16,6 +16,7 @@ mongoose.connect(db.uri, { useUnifiedTopology: true, useNewUrlParser: true }, ()
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/static', express.static(__dirname + '/arquivos'));
 
 app.use('/v1', routes)
 

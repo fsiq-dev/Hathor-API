@@ -3,6 +3,7 @@ const joi = require('joi')
 
 //
 const validateDTO = require('../../utils/middlewares/validate-dto.middleware')
+const fileUploadMiddleware = require('../../utils/middlewares/file-upload.middleware')
 
 const { findCategoryById, listAllCategory, createNewCategory, updateCategory, deleteCategory } = categoryCTRL
 module.exports = (Router) => {
@@ -10,6 +11,7 @@ module.exports = (Router) => {
         .route('/category')
         .get(listAllCategory)
         .post(
+            fileUploadMiddleware('categorys'),
             validateDTO('body', {
                 name: joi.string().required().messages({
                     'any.required': `"nome" é um campo obrigatório`,
@@ -23,6 +25,8 @@ module.exports = (Router) => {
                     'any.required': `"status" é um campo obrigatório`,
                     'string.empty': `"status" não deve ser vazio`
                 }),
+            }, {
+                allowUnknown: true,
             }),
             createNewCategory
             )
@@ -30,7 +34,7 @@ module.exports = (Router) => {
         .route('/category/:id')
         .get(
             validateDTO('params', {
-                idCategory: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
+                id: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
                     'any.required': `"categoria id" é um campo obrigatório`,
                     'string.empty': `"categoria id" não deve ser vazio`,
                     'string.regex': `"categoria id" fora do formato experado`,
@@ -39,8 +43,9 @@ module.exports = (Router) => {
             findCategoryById
         )
         .put(
+            fileUploadMiddleware('categorys'),
             validateDTO('params', {
-                idCategory: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
+                id: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
                     'any.required': `"categoria id" é um campo obrigatório`,
                     'string.empty': `"categoria id" não deve ser vazio`,
                     'string.regex': `"categoria id" fora do formato experado`,
@@ -59,12 +64,14 @@ module.exports = (Router) => {
                     'any.required': `"status" é um campo obrigatório`,
                     'string.empty': `"status" não deve ser vazio`
                 }),
+            }, {
+                allowUnknown: true,
             }),
             updateCategory
         )
         .delete(
             validateDTO('params', {
-                idCategory: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
+                id: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
                     'any.required': `"categoria id" é um campo obrigatório`,
                     'string.empty': `"categoria id" não deve ser vazio`,
                     'string.regex': `"categoria id" fora do formato experado`,
