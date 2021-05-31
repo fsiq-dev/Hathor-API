@@ -1,14 +1,19 @@
 const joi =  require('joi')
 
 const partnersCTRL = require(`../../controllers/partners.ctrl`)
-const { createNewPartners } = partnersCTRL
+const { createNewPartners, listAllPartners } = partnersCTRL
 const ValidateDTO = require('../../utils/middlewares/validate-dto.middleware')
 
 module.exports = (Router) => {
     Router
         .route('/partners')
+        .get(listAllPartners)
         .post(
             ValidateDTO('body', {
+                name: joi.string().required().messages({
+                    'any.required': `"Nome" é um campo obrigatório`,
+                    'string.empty': `"Nome" não deve ser vazio`
+                }),
                 companyName: joi.string().required().messages({
                     'any.required': `"companyName" é um campo obrigatório`,
                     'string.empty': `"companyName" não deve ser vazio`

@@ -1,7 +1,7 @@
 const adminSchema = {
-  name: {
+  secondPassword: {
       type: String,
-      required: true,
+      required: false,
   }
 }
 

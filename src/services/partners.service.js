@@ -1,4 +1,5 @@
 const  { partner } = require('../models/index')
+const { toListItemDTO } = require('../mapper/partners.mapper')
 const { emailAlreadyExist } = require('../services/user.service')
 const { createHash } = require('../utils/cryptograph.utils')
 
@@ -34,6 +35,11 @@ const createNewPartner =  async (model) => {
     const newPartner = await partner.create({
         email,
         cnpj,
+        image: {
+            initialName: "defaultUser.png",
+            name: "defaultUser.png",
+            type: "image/png"
+        },
         ...rest,
         password: createHash(password),
         status: "Analise"
@@ -42,11 +48,27 @@ const createNewPartner =  async (model) => {
         sucsses: true,
         message: 'Operação realizada com sucesso',
         data: {
-            ...newPartner
+            ...toListItemDTO(newPartner)
         }
     }
 }
 
+const listAllPartnerService = async (filter) => {
+    // const {status} = filter
+
+    // const body = {}
+
+    // if(status) {
+    //     body.status = status
+    // }
+
+    const resultDB = await partner.find();
+
+    return resultDB.map(item => {
+        return toListItemDTO(item)
+    })
+}
 module.exports = {
-    createNewPartner
+    createNewPartner,
+    listAllPartnerService
 }

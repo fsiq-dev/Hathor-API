@@ -2,9 +2,41 @@ const { user } = require('../models/index')
 const cryptograph = require('../utils/cryptograph.utils')
 const userMapper = require('../mapper/user.mapper')
 
+const { toUserDTO } = userMapper
+
 const emailAlreadyExist = async (email) => {
     const users = await user.find({ email })
     return users.length > 0 ? true : false
+}
+
+const createNewUser = async (model) => {
+    const {name, email , password, ...rest} = model
+
+    if(await emailAlreadyExist(email))
+        return{
+            sucsses: false,
+            message: 'operação não pode ser realizada',
+            details: [
+                'Já existe usuário cadastrado para o email informado'
+            ]
+        }
+    const newUser = await user.create({
+        name,
+        email,
+        password: cryptograph.createHash(password),
+        image: {
+            initialName: "defaultUser.png",
+            name: "defaultUser.png",
+            type: "image/png"
+        }
+    })
+    return {
+        sucsses: true,
+        message: 'Operação realizada com sucesso',
+        data: {
+            ...toUserDTO(newUser)
+        }
+    }
 }
 
 const userAlreadyExist = async (email, password) => {
@@ -42,6 +74,7 @@ const validate = async (email, password) => {
 
 module.exports = { 
     userAlreadyExist,
+    createNewUser,
     validate,
     emailAlreadyExist
 }

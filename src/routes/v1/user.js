@@ -19,4 +19,24 @@ module.exports = (Router) => {
             }),
             userCTRL.auth
         )
+
+    Router
+        .route('/signup')
+        .post(
+            validateDTO('body', {
+                name: joi.string().required().messages({
+                    'any.required': `"nome" é um campo obrigatório`,
+                    'string.empty': `"nome" não deve ser vazio`,
+                }),
+                email: joi.string().required().messages({
+                    'any.required': `"e-mail" é um campo obrigatório`,
+                    'string.empty': `"e-mail" não deve ser vazio`,
+                }),
+                password: joi.string().required().messages({
+                    'any.required': `"senha" é um campo obrigatório`,
+                    'string.empty': `"senha" não deve ser vazio`,
+                }),
+            }),
+            userCTRL.signupUser
+        )
 }

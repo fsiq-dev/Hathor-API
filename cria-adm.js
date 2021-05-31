@@ -21,6 +21,11 @@ const criaADM = async () => {
   await admin.create({
     email: 'felipe.adm@teste.com',
     name: "felipe",
+    image: {
+      initialName: "defaultUser.png",
+      name: "defaultUser.png",
+      type: "image/png"
+    },
     password: cryptograph.createHash('123123')
   });
 }

@@ -1,5 +1,6 @@
 const partnersService = require('../services/partners.service')
-const  { createNewPartner } = partnersService
+const  { createNewPartner, listAllPartnerService } = partnersService
+
 const createNewPartners = async (req, res , next) => {
     const { body } = req
     const resultService = await createNewPartner(body)
@@ -10,7 +11,13 @@ const createNewPartners = async (req, res , next) => {
         ...resultData
     })
 }
-
+const listAllPartners = async (req, res, next) => {
+    const data = await listAllPartnerService()
+    res.status(200).send({
+        data,
+    })
+}
 module.exports = {
     createNewPartners,
+    listAllPartners
 }

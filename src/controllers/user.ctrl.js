@@ -11,7 +11,19 @@ const auth = async (req, res, next) => {
         ...resultData
     })
 }
+const signupUser = async (req, res, next) => {
+    const { body } = req
+    const resultService = await userService.createNewUser(body)
+
+    const resultSucsses = resultService.sucsses ? 200 : 401;
+    const resultData = resultService.sucsses ? {data: resultService.data} : {datails: resultService.details}
+    return res.status (resultSucsses).send({
+        message: resultService.message,
+        ...resultData
+    })
+}
 
 module.exports = {
-    auth
+    auth,
+    signupUser
 }
