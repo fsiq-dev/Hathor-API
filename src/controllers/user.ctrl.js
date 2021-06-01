@@ -22,8 +22,12 @@ const signupUser = async (req, res, next) => {
         ...resultData
     })
 }
+const updateImage = async (req, res, next) => {
+    return res.status(200).send(`ok`)
+}
 
 module.exports = {
     auth,
-    signupUser
+    signupUser,
+    updateImage
 }

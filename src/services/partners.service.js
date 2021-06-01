@@ -68,7 +68,34 @@ const listAllPartnerService = async (filter) => {
         return toListItemDTO(item)
     })
 }
+
+const changeStatus = async (id, status) => {
+    const resultDB = await partner.findById(id)
+    
+    if(!resultDB) {
+        return{
+            sucsses: false,
+            message: 'operação não pode ser realizada',
+            details: [
+                'Desculpe não foi encontrado um parçeiro com esse id'
+            ]
+        }
+    }
+    resultDB.status = status
+
+    await resultDB.save()
+
+    return {
+        sucsses: true,
+        message: 'Operacão realizada com sucesso!',
+        data: {
+            ...toListItemDTO(resultDB)
+        }
+    }
+}
+
 module.exports = {
     createNewPartner,
-    listAllPartnerService
+    listAllPartnerService,
+    changeStatus
 }

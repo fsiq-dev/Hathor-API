@@ -1,7 +1,7 @@
 const joi =  require('joi')
 
 const partnersCTRL = require(`../../controllers/partners.ctrl`)
-const { createNewPartners, listAllPartners } = partnersCTRL
+const { createNewPartners, listAllPartners, active , inactive } = partnersCTRL
 const ValidateDTO = require('../../utils/middlewares/validate-dto.middleware')
 
 module.exports = (Router) => {
@@ -53,6 +53,32 @@ module.exports = (Router) => {
             }),
 
         createNewPartners
+        )
+    
+    Router
+        .route('/partners/:id/active')
+        .put(
+            ValidateDTO('params', {
+                id: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
+                    'any.required': `"categoria id" é um campo obrigatório`,
+                    'string.empty': `"categoria id" não deve ser vazio`,
+                    'string.regex': `"categoria id" fora do formato experado`,
+                }),
+            }),
+            active
+        )
+    
+    Router
+        .route('/partners/:id/inactive')
+        .put(
+            ValidateDTO('params', {
+                id: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
+                    'any.required': `"categoria id" é um campo obrigatório`,
+                    'string.empty': `"categoria id" não deve ser vazio`,
+                    'string.regex': `"categoria id" fora do formato experado`,
+                }),
+            }),
+            inactive
         )
 
 }

@@ -2,7 +2,7 @@ const userCTRL = require ('../../controllers/user.ctrl')
 const  validateDTO = require('../../utils/middlewares/validate-dto.middleware')
 
 const joi = require('joi')
-
+const { auth, signupUser, updateImage} = userCTRL
 module.exports = (Router) => {
     Router
         .route('/auth')
@@ -17,7 +17,7 @@ module.exports = (Router) => {
                     'string.empty': `"senha" não deve ser vazio`,
                 }),
             }),
-            userCTRL.auth
+            auth
         )
 
     Router
@@ -37,6 +37,12 @@ module.exports = (Router) => {
                     'string.empty': `"senha" não deve ser vazio`,
                 }),
             }),
-            userCTRL.signupUser
+            signupUser
         )
+    // Router
+    //     .route('/updateImage/:id')
+    //     .post(
+    //         fileUploadMiddleware('profile'),
+    //         updateImage
+    //     )
 }
