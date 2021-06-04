@@ -1,3 +1,6 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
 const partnerSchema = {
     companyName: {
         type: String,
@@ -31,8 +34,11 @@ const partnerSchema = {
         type: String,
         required: true,
     },
-    
-  }
+    employees: [{
+        type: Schema.Types.ObjectId,
+        ref: 'employee'
+    }]
+}
   
   module.exports = partnerSchema;
   

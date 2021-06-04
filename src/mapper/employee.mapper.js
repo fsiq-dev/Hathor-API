@@ -2,20 +2,13 @@ const fileUtils = require('../utils/file.utils')
 const { createAddressDownload } = fileUtils
 
 const toDTO = (model) => {
-    return {
- 
-    }
-}
-
-const toListItemDTO = (model) => {
-    const {_id, companyName, cnpj, address, accountable, image, phone, status} = model
+    const {_id, name, email, image, phone, status, address } = model
     return {
         id: _id,
-        companyName,
-        cnpj,
-        address,
-        accountable,
+        name,
+        email,
         phone,
+        address,
         image: createAddressDownload('profile', image.name),
         status
     }
@@ -23,5 +16,4 @@ const toListItemDTO = (model) => {
 
 module.exports = {
     toDTO,
-    toListItemDTO
 }

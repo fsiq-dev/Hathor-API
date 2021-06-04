@@ -1,5 +1,5 @@
 const partnersService = require('../services/partners.service')
-const  { createNewPartner, listAllPartnerService, changeStatus } = partnersService
+const  { createNewPartner, listAllPartnerService, changeStatus, createEmployee } = partnersService
 
 const createNewPartners = async (req, res , next) => {
     const { body } = req
@@ -11,12 +11,14 @@ const createNewPartners = async (req, res , next) => {
         ...resultData
     })
 }
+
 const listAllPartners = async (req, res, next) => {
     const data = await listAllPartnerService()
     res.status(200).send({
         data,
     })
 }
+
 const active = async (req, res, next) => {
     const { id } = req.params 
 
@@ -29,6 +31,7 @@ const active = async (req, res, next) => {
         ...resultData
     })
 }
+
 const inactive = async (req, res, next) => {
     const { id } = req.params 
 
@@ -41,9 +44,10 @@ const inactive = async (req, res, next) => {
         ...resultData
     })
 }
+
 module.exports = {
     createNewPartners,
     listAllPartners,
     active,
-    inactive
+    inactive,
 }

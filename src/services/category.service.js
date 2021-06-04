@@ -52,19 +52,22 @@ const updateCategoryService = async (id, model) => {
             ]
         }
     }
-    removeFile('categorys', categoryDB.image.name)
-    
+
     categoryDB.name = model.name
     categoryDB.description = model.description
     categoryDB.status = model.status
-    categoryDB.image = {
-        initialName: model.image.initialName,
-        name: model.image.newName,
-        type: model.image.type
-    }
-    await categoryDB.save()
+    
+    if (model.image) {
+        removeFile('categorys', categoryDB.image.name)
+        moveFile(model.image.initialDestination, model.image.newDestination)
+        categoryDB.image = {
+            initialName: model.image.initialName,
+            name: model.image.newName,
+            type: model.image.type
+        }
+    }    
 
-    moveFile(model.image.initialDestination, model.image.newDestination)
+    await categoryDB.save()
 
     return {
         sucsses: true,

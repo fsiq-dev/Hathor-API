@@ -1,3 +1,6 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
 const categorySchema = {
     name: {
         type: String,
@@ -24,7 +27,11 @@ const categorySchema = {
             type: String,
             required: false,
         }
-    }
-  }
+    },
+    employees: [{
+        type: Schema.Types.ObjectId,
+        ref: 'employee'
+    }]
+}
   
-  module.exports = categorySchema;
+module.exports = categorySchema;

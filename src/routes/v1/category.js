@@ -43,7 +43,7 @@ module.exports = (Router) => {
             findCategoryById
         )
         .put(
-            fileUploadMiddleware('categorys'),
+            fileUploadMiddleware('categorys', true),
             validateDTO('params', {
                 id: joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
                     'any.required': `"categoria id" é um campo obrigatório`,

@@ -11,6 +11,28 @@ const userSchema = {
         type: String,
         required: true,
     },
+    address: {
+        country: {
+            type: String,
+            required: false,
+        },
+        state: {
+            type: String,
+            required: false,
+        },
+        city: {
+            type: String,
+            required: false,
+        },
+        address:{
+            type: String,
+            required: false,
+        },
+        zip: {
+            type: Number,
+            required: false,
+        }
+    },
     image: {
         initialName: {
             type: String,

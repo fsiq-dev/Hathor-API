@@ -24,11 +24,6 @@ const createNewUser = async (model) => {
         name,
         email,
         password: cryptograph.createHash(password),
-        image: {
-            initialName: "defaultUser.png",
-            name: "defaultUser.png",
-            type: "image/png"
-        }
     })
     return {
         sucsses: true,

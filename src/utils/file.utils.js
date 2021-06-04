@@ -16,7 +16,8 @@ const moveFile = (temp, fixed) => {
 }
 
 const createAddressDownload = (origin, fileName) => {
-    return path.join('/static', origin, fileName)
+    const Path = `/static/${origin}/${fileName}`
+    return Path
 }
 
 const removeFile = (origin, fileName) => {

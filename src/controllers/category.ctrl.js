@@ -30,6 +30,7 @@ const createNewCategory = async (req, res, next) => {
 const updateCategory = async (req, res, next) => {
     const { id } = req.params
     const { body } = req
+    console.log(id, body)
 
     const resultService = await updateCategoryService(id, body)
 

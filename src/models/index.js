@@ -27,6 +27,9 @@ const admin = user.discriminator('admin', createSchema(userSchema, adminSchema, 
 const partnerSchema  = require('./partners.model')
 const partner = user.discriminator('partner', createSchema(userSchema, partnerSchema, {}))
 
+// Funcionarios
+const employeeSchema = require('./employee.model')
+const employee = user.discriminator('employee', createSchema(userSchema, employeeSchema, {}))
 
 // CATEGORIA
 const categorySchema = require('./category.model')
@@ -34,9 +37,19 @@ const category = mongoose.model('category', createSchema(undefined, categorySche
     collection: 'category',
 }))
 
+// EVENT
+const eventSchema = require('./events.model')
+const event = mongoose.model('event', createSchema(undefined, eventSchema, {
+    collection: 'event'
+}))
+
+
+
 module.exports = {
     user,
     admin,
     category,
-    partner
+    partner,
+    employee,
+    event
 }

@@ -1,4 +1,4 @@
-const  { partner } = require('../models/index')
+const  { partner, employee } = require('../models/index')
 const { toListItemDTO } = require('../mapper/partners.mapper')
 const { emailAlreadyExist } = require('../services/user.service')
 const { createHash } = require('../utils/cryptograph.utils')
@@ -35,11 +35,6 @@ const createNewPartner =  async (model) => {
     const newPartner = await partner.create({
         email,
         cnpj,
-        image: {
-            initialName: "defaultUser.png",
-            name: "defaultUser.png",
-            type: "image/png"
-        },
         ...rest,
         password: createHash(password),
         status: "Analise"
@@ -97,5 +92,5 @@ const changeStatus = async (id, status) => {
 module.exports = {
     createNewPartner,
     listAllPartnerService,
-    changeStatus
+    changeStatus,
 }

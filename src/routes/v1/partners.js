@@ -1,7 +1,9 @@
 const joi =  require('joi')
 
 const partnersCTRL = require(`../../controllers/partners.ctrl`)
+
 const { createNewPartners, listAllPartners, active , inactive } = partnersCTRL
+
 const ValidateDTO = require('../../utils/middlewares/validate-dto.middleware')
 
 module.exports = (Router) => {
@@ -80,6 +82,5 @@ module.exports = (Router) => {
             }),
             inactive
         )
-
 }
 
